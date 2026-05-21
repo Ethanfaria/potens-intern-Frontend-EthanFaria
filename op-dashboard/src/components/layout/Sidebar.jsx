@@ -7,7 +7,7 @@ import {
   MdMenu,
   MdClose,
 } from "react-icons/md";
-
+import { IoLanguage } from "react-icons/io5";
 const navItems = [
   {
     id: "actions",
@@ -42,7 +42,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
         className={`fixed inset-0 z-30 md:hidden
         transition-all duration-300
         ${
-            sidebarOpen
+          sidebarOpen
             ? "bg-black/10 opacity-100"
             : "bg-transparent opacity-0 pointer-events-none"
         }`}
@@ -51,7 +51,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
       <div
         className={`
         fixed top-0 left-0 h-screen
-        w-64 bg-cyan-300/20 backdrop-blur-xl
+        w-64 bg-cyan-300/30 backdrop-blur-xl
         border-r border-white/10
         flex flex-col shadow-2xl z-50
 
@@ -71,12 +71,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
         <div className="p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-teal-400 animate-pulse"></div>
-
-            <div>
-              <h1 className="font-bold tracking-wide">OPS COMMAND</h1>
-
-              <p className="text-xs text-slate-400">Operations Dashboard</p>
-            </div>
+            <h1 className="font-bold tracking-wide">DASHBOARD</h1>
           </div>
         </div>
 
@@ -103,7 +98,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 }`}
               >
                 {active && (
-                  <div className="absolute left-0 top-0 h-full w-1 bg-teal-900 rounded-r-full" />
+                  <div className="absolute left-0 top-0 h-full w-1 bg-teal-800 rounded-r-full" />
                 )}
 
                 <span
@@ -125,25 +120,31 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
 
         <div className="p-4 border-t border-white/10">
           <button
-            className="w-full flex items-center gap-3
-            p-3 rounded-xl
-            bg-teal-600/10 text-slate-600
-            hover:bg-teal-600/30
-            transition-all duration-300"
+            className="w-full flex items-center justify-between
+    p-3 rounded-xl
+    bg-teal-600/10 text-slate-600
+    hover:bg-teal-600/30
+    transition-all duration-300"
           >
-            <div
-              className="w-10 h-10 rounded-full
-            bg-gradient-to-br from-teal-400 to-cyan-500
-            flex items-center justify-center"
-            >
-              <MdPerson className="text-white text-lg" />
+            <div className="flex items-center gap-3">
+              <div
+                className="w-10 h-10 rounded-full
+        bg-linear-to-br from-teal-400 to-cyan-500
+        flex items-center justify-center"
+              >
+                <MdPerson className="text-white text-lg" />
+              </div>
+
+              <div className="text-left">
+                <p className="text-sm font-medium">Account</p>
+                <p className="text-xs text-slate-400">Admin Access</p>
+              </div>
             </div>
 
-            <div className="text-left">
-              <p className="text-sm font-medium">Account</p>
-
-              <p className="text-xs text-slate-400">Admin Access</p>
-            </div>
+            <IoLanguage
+              size={20}
+              className="text-slate-500 hover:text-teal-600 transition-colors"
+            />
           </button>
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function App() {
       />
       <div className="flex flex-col flex-1 overflow-hidden md:ml-64">
         <TopBar activeView={activeView} />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-6 bg-cyan-300/20">
           {activeView === "actions" && <ActionItems />}
           {activeView === "anomalies" && <Anomalies />}
           {activeView === "metrics" && <LiveMetrics />}
