@@ -98,7 +98,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
 
                 ${
                   active
-                    ? "bg-teal-500/20 text-teal-950 shadow-lg"
+                    ? "bg-teal-700 text-white shadow-lg"
                     : "text-slate-600 hover:bg-teal-600/20 hover:translate-x-2"
                 }`}
               >
