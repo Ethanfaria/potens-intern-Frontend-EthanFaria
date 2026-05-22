@@ -46,7 +46,7 @@ export const anomalies = [
     description:
       "System shows 1,240 units; physical count 987. Δ 253 units (SKU: PLT-44X)",
     time: "08:14",
-    delta: "−20.4%",
+    impact: "−20.4%",
   },
   {
     id: "ANO-002",
@@ -56,7 +56,7 @@ export const anomalies = [
     description:
       "PO #78108 and #78241 share identical line items · Double-payment risk",
     time: "07:51",
-    delta: "₹2.4Cr",
+    impact: "₹2.4Cr",
   },
   {
     id: "ANO-003",
@@ -66,7 +66,7 @@ export const anomalies = [
     description:
       "Trucks MH-04-CF-1221, 1334, 1892 off radar since 07:09 · Last seen Khopoli",
     time: "07:09",
-    delta: "3 veh",
+    impact: "3 veh",
   },
   {
     id: "ANO-004",
@@ -76,6 +76,6 @@ export const anomalies = [
     description:
       "Scheduled 07:30 NEFT run failed · 14 vendor payments queued · Retry 11:00",
     time: "07:30",
-    delta: "14 txn",
+    impact: "14 txn",
   },
 ];
