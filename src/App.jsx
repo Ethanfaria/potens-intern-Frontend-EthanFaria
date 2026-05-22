@@ -50,7 +50,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 text-slate-900">
+    <div className="flex h-screen  text-slate-900 ">
       <Sidebar
         activeView={activeView}
         onNavigate={handleNavigate}
@@ -60,13 +60,13 @@ export default function App() {
       <div className="flex flex-col flex-1 overflow-hidden md:ml-64">
         <TopBar activeView={activeView} />
         <main className="flex-1 overflow-y-auto bg-cyan-300/20">
-          <section ref={actionsRef} className="p-6 border-b border-white/20">
+          <section ref={actionsRef} className="p-6 border-b border-white/20 dark:bg-slate-950/95">
             <ActionItems />
           </section>
-          <section ref={anomaliesRef} className="p-6 border-b border-white/20">
+          <section ref={anomaliesRef} className="p-6 border-b border-white/20 dark:bg-slate-950/95">
             <Anomalies />
           </section>
-          <section ref={metricsRef} className="min-h-full p-6">
+          <section ref={metricsRef} className="min-h-full p-6 dark:bg-slate-950/95">
             <Metrics />
           </section>
         </main>

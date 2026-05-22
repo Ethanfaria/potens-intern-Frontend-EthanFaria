@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App.jsx";
 import "./index.css";
 import { LangProvider } from "./components/context/LangContext";
+import { DarkModeProvider } from "./components/context/DarkModeContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LangProvider>
-      <App />
-    </LangProvider>
+    <DarkModeProvider>
+      <LangProvider>
+        <App />
+      </LangProvider>
+    </DarkModeProvider>
   </StrictMode>,
 );

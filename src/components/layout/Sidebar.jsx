@@ -9,9 +9,11 @@ import {
 } from "react-icons/md";
 import { IoLanguage } from "react-icons/io5";
 import { useLang } from "../../components/context/LangContext";
+import { useDarkMode } from "../../components/context/DarkModeContext";
 
 const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
   const { lang, toggleLang, loading, t } = useLang();
+  const { darkMode } = useDarkMode();
 
   const navItems = [
     { id: "actions", label: t.actions, icon: <MdBolt /> },
@@ -43,7 +45,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
       <div
         className={`
         fixed top-0 left-0 h-screen
-        w-64 bg-cyan-300/30 backdrop-blur-xl
+        w-64 bg-cyan-300/30 dark:bg-slate-950 backdrop-blur-xl
         border-r border-white/10
         flex flex-col shadow-2xl z-50
         transition-transform duration-300
@@ -61,7 +63,9 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
         <div className="p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-teal-400 animate-pulse"></div>
-            <h1 className="font-bold tracking-wide">DASHBOARD</h1>
+            <h1 className="dark:text-cyan-50 font-bold tracking-wide">
+              DASHBOARD
+            </h1>
           </div>
         </div>
 
@@ -83,8 +87,8 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 cursor-pointer
                 ${
                   active
-                    ? "bg-teal-700 text-white shadow-lg"
-                    : "text-slate-600 hover:bg-teal-600/20 hover:translate-x-2"
+                    ? "dark:bg-teal-700 bg-teal-950 text-white shadow-lg"
+                    : "text-slate-600 dark:text-slate-400/70 dark:hover:text-slate-400 hover:bg-teal-600/20 hover:translate-x-2"
                 }`}
               >
                 {active && (
@@ -121,7 +125,9 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
             </div>
 
             <div>
-              <p className="text-sm font-medium">{t.account}</p>
+              <p className="text-sm font-medium dark:text-cyan-50">
+                {t.account}
+              </p>
               <p className="text-xs text-slate-400">{t.adminAccess}</p>
             </div>
           </div>
@@ -133,6 +139,8 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
             className=" cursor-pointer
       flex-1
       rounded-xl
+      dark:text-cyan-50/90
+      dark:hover:text-cyan-50
       bg-teal-600/10
       hover:bg-teal-600/30
       flex items-center justify-center
