@@ -1,44 +1,55 @@
-import { useState, useEffect, useRef } from "react"
-import Sidebar from "./components/layout/Sidebar"
-import TopBar from "./components/layout/TopBar"
-import ActionItems from "./components/views/ActionItems"
-import Anomalies from "./components/views/Anomalies"
-import Metrics from "./components/views/Metrics"
-import { LowBWProvider, useLowBW } from "./components/context/LowBWContext"
+import { useState, useEffect, useRef } from "react";
+import Sidebar from "./components/layout/Sidebar";
+import TopBar from "./components/layout/TopBar";
+import ActionItems from "./components/views/ActionItems";
+import Anomalies from "./components/views/Anomalies";
+import Metrics from "./components/views/Metrics";
+import { LowBWProvider, useLowBW } from "./components/context/LowBWContext";
 
 function AppInner() {
-  const [activeView, setActiveView] = useState("actions")
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { lowBW } = useLowBW()
-  const actionsRef = useRef(null)
-  const anomaliesRef = useRef(null)
-  const metricsRef = useRef(null)
+  const [activeView, setActiveView] = useState("actions");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { lowBW } = useLowBW();
+  const actionsRef = useRef(null);
+  const anomaliesRef = useRef(null);
+  const metricsRef = useRef(null);
 
-  const sectionRefs = { actions: actionsRef, anomalies: anomaliesRef, metrics: metricsRef }
+  const sectionRefs = {
+    actions: actionsRef,
+    anomalies: anomaliesRef,
+    metrics: metricsRef,
+  };
 
+  // Updates activeView as the user scrolls, so the sidebar stays in sync
   useEffect(() => {
-    const scrollContainer = document.querySelector("main")
-    const observers = []
+    const scrollContainer = document.querySelector("main");
+    const observers = [];
     Object.entries(sectionRefs).forEach(([id, ref]) => {
-      if (!ref.current) return
+      if (!ref.current) return;
       const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveView(id) },
-        { root: scrollContainer, threshold: 0, rootMargin: "-40px 0px -55% 0px" }
-      )
-      observer.observe(ref.current)
-      observers.push(observer)
-    })
-    return () => observers.forEach(o => o.disconnect())
-  }, [])
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveView(id);
+        },
+        {
+          root: scrollContainer,
+          threshold: 0,
+          rootMargin: "-40px 0px -55% 0px",
+        },
+      );
+      observer.observe(ref.current);
+      observers.push(observer);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   function handleNavigate(id) {
-    sectionRefs[id].current?.scrollIntoView({ behavior: "smooth" })
-    setSidebarOpen(false)
+    sectionRefs[id].current?.scrollIntoView({ behavior: "smooth" });
+    setSidebarOpen(false);
   }
 
   const sectionClass = lowBW
     ? "px-4 py-3 border-b border-white/20"
-    : "p-6 border-b border-white/20"
+    : "p-6 border-b border-white/20";
 
   return (
     <div className="flex h-screen text-slate-900">
@@ -48,32 +59,46 @@ function AppInner() {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
-      <div className={`flex flex-col flex-1 overflow-hidden transition-all duration-300
-        ${lowBW ? 'md:ml-16' : 'md:ml-64'}`}>
+      {/* Offset matches sidebar width: icon rail (md:ml-16) vs full sidebar (md:ml-64) */}
+      <div
+        className={`flex flex-col flex-1 overflow-hidden transition-all duration-300
+        ${lowBW ? "md:ml-16" : "md:ml-64"}`}
+      >
         <TopBar activeView={activeView} />
-        <main className={`flex-1 overflow-y-auto transition-colors duration-300
-          ${lowBW ? 'bg-white dark:bg-slate-950' : 'bg-cyan-300/20'}`}>
-
-          <section ref={actionsRef} className={`${sectionClass} dark:bg-slate-950/95`}>
+        <main
+          className={`flex-1 overflow-y-auto transition-colors duration-300
+          ${lowBW ? "bg-white dark:bg-slate-950" : "bg-cyan-300/20"}`}
+        >
+          <section
+            ref={actionsRef}
+            className={`${sectionClass} dark:bg-slate-950/95`}
+          >
             <ActionItems />
           </section>
-          <section ref={anomaliesRef} className={`${sectionClass} dark:bg-slate-950/95`}>
+          <section
+            ref={anomaliesRef}
+            className={`${sectionClass} dark:bg-slate-950/95`}
+          >
             <Anomalies />
           </section>
-          <section ref={metricsRef} className={`min-h-full dark:bg-slate-950/95
-            ${lowBW ? 'px-4 py-3' : 'p-6'}`}>
+          <section
+            ref={metricsRef}
+            className={`min-h-full dark:bg-slate-950/95
+            ${lowBW ? "px-4 py-3" : "p-6"}`}
+          >
             <Metrics />
           </section>
         </main>
       </div>
     </div>
-  )
+  );
 }
 
+// AppInner is a separate component so it can consume LowBWContext
 export default function App() {
   return (
     <LowBWProvider>
       <AppInner />
     </LowBWProvider>
-  )
+  );
 }

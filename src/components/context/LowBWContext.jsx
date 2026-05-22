@@ -1,17 +1,18 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from "react";
 
-const LowBWContext = createContext()
+const LowBWContext = createContext();
 
+// Reduces data-heavy UI elements (charts, images) for slow connections
 export function LowBWProvider({ children }) {
-  const [lowBW, setLowBW] = useState(false)
-  const toggleLowBW = () => setLowBW(v => !v)
+  const [lowBW, setLowBW] = useState(false);
+  const toggleLowBW = () => setLowBW((v) => !v);
   return (
     <LowBWContext.Provider value={{ lowBW, toggleLowBW }}>
       {children}
     </LowBWContext.Provider>
-  )
+  );
 }
 
 export function useLowBW() {
-  return useContext(LowBWContext)
+  return useContext(LowBWContext);
 }
