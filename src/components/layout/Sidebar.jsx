@@ -9,7 +9,7 @@ import { useDarkMode } from "../../components/context/DarkModeContext";
 import { useLowBW } from "../../components/context/LowBWContext";
 
 const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
-  const { toggleLang, loading, t } = useLang();
+  const { toggleLang, t } = useLang();
   const { darkMode } = useDarkMode();
   const { lowBW } = useLowBW();
 
@@ -139,12 +139,11 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
           </div>
           <button
             onClick={toggleLang}
-            disabled={loading}
             className="cursor-pointer flex-1 rounded-xl dark:text-cyan-50/90
               dark:hover:text-cyan-50 bg-teal-600/10 hover:bg-teal-600/30
               flex items-center justify-center transition-all duration-300"
           >
-            {loading ? "..." : <IoLanguage className="text-xl" />}
+            <IoLanguage className="text-xl" />
           </button>
         </div>
       </div>
