@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { useLang } from "../../components/context/LangContext";
 import { useLowBW } from "../../components/context/LowBWContext";   // ← add
 
-function getSecondsUntilNoon() {
+function getSecondsUntilTarget() {
   const now = new Date();
-  const noon = new Date();
-  noon.setHours(12, 0, 0, 0);
-  return Math.max(0, Math.floor((noon - now) / 1000));
+  const target = new Date();
+  target.setHours(21, 0, 0, 0);
+  if (target <= now) {
+    target.setDate(target.getDate() + 1);
+  }
+  return Math.floor((target - now) / 1000);
 }
 
 function formatCountdown(seconds) {
@@ -17,13 +20,13 @@ function formatCountdown(seconds) {
 }
 
 export default function Metrics() {
-  const [secondsLeft, setSecondsLeft] = useState(getSecondsUntilNoon());
+  const [secondsLeft, setSecondsLeft] = useState(getSecondsUntilTarget());
   const { t } = useLang();
-  const { lowBW } = useLowBW();                                     // ← add
+  const { lowBW } = useLowBW();                                     
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSecondsLeft(getSecondsUntilNoon());
+      setSecondsLeft(getSecondsUntilTarget());
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -93,7 +96,7 @@ export default function Metrics() {
           {/* Fine-print — hidden in low-BW */}
           {!lowBW && (
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
-              PO-78241 · Vendor payment ₹2.4 Cr · Penalty clause §14b activates at 12:00
+              PO-78241 · Vendor payment ₹2.4 Cr · Penalty clause §14b activates at 21:00
             </p>
           )}
         </div>
