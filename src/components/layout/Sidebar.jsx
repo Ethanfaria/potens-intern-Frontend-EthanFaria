@@ -62,21 +62,23 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
         </button>
 
         {/* Header */}
-        <div className={`border-b border-white/10 transition-all duration-300
-          ${lowBW ? "p-3 md:flex md:justify-center" : "p-6"}`}>
-          {lowBW ? (
-            <div className="flex items-center gap-3 md:justify-center">
-              <div className="w-3 h-3 rounded-full bg-teal-400" />
-              {/* Label visible on mobile, hidden on desktop rail */}
-              <h1 className="dark:text-cyan-50 font-bold tracking-wide md:hidden">DASHBOARD</h1>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-teal-400 animate-pulse" />
-              <h1 className="dark:text-cyan-50 font-bold tracking-wide">DASHBOARD</h1>
-            </div>
-          )}
-        </div>
+        <div className={`border-b border-white/10 flex items-center
+  ${lowBW
+    ? "h-12 px-3 md:justify-center"   
+    : "h-20 px-6"                      
+  }`}>
+  {lowBW ? (
+    <div className="flex items-center gap-3 md:justify-center w-full">
+      <div className="w-3 h-3 rounded-full bg-teal-400" />
+      <h1 className="dark:text-cyan-50 font-bold tracking-wide md:hidden">DASHBOARD</h1>
+    </div>
+  ) : (
+    <div className="flex items-center gap-3">
+      <div className="w-3 h-3 rounded-full bg-teal-400 animate-pulse" />
+      <h1 className="dark:text-cyan-50 font-bold tracking-wide">DASHBOARD</h1>
+    </div>
+  )}
+</div>
 
         {/* Nav */}
         <nav className={`flex-1 flex flex-col gap-2 transition-all duration-300
