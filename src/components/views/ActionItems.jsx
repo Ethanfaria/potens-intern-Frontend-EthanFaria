@@ -202,8 +202,8 @@ export default function ActionItems() {
                   {isHeld && <span className="flex items-center gap-1 text-xs text-red-500 font-bold"><MdPause size={15} /> {t.onHold}</span>}
                   {!isDone && (
                     <>
-                      <button onClick={() => doAction(item.id, "approved")} className="text-xs px-3 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 active:scale-95 transition-all duration-150 shadow-sm">{t.approve}</button>
-                      <button onClick={() => doAction(item.id, "held")} className="text-xs px-3 py-1.5 rounded-lg bg-white text-red-500 font-bold border-2 border-red-400 hover:bg-red-500 hover:text-white active:scale-95 transition-all duration-150">{t.hold}</button>
+                      <button onClick={() => doAction(item.id, "approved")} className="text-xs px-3 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 active:scale-95 transition-all duration-150 shadow-sm cursor-pointer">{t.approve}</button>
+                      <button onClick={() => doAction(item.id, "held")} className="text-xs px-3 py-1.5 rounded-lg bg-white text-red-500 font-bold border-2 border-red-400 hover:bg-red-500 hover:text-white active:scale-95 transition-all duration-150 cursor-pointer">{t.hold}</button>
                     </>
                   )}
                 </div>

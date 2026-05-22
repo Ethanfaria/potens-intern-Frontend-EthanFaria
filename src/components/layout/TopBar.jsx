@@ -45,7 +45,7 @@ export default function TopBar() {
         <button
           onClick={() => setLowBW(!lowBW)}
           title={lowBW ? 'Low bandwidth on' : 'Low bandwidth off'}
-          className={`p-2.5 rounded-xl border transition-all duration-200
+          className={`p-2.5 rounded-xl border transition-all duration-200 cursor-pointer
             ${lowBW
               ? 'bg-amber-50 border-amber-300 text-amber-600'
               : 'bg-white/50 border-slate-200 text-slate-500 hover:bg-white/80'
@@ -57,7 +57,7 @@ export default function TopBar() {
         <button
           onClick={() => setDarkMode(!darkMode)}
           title={darkMode ? 'Switch to light' : 'Switch to dark'}
-          className={`p-2.5 rounded-xl border transition-all duration-200
+          className={`p-2.5 rounded-xl border transition-all duration-200 cursor-pointer
             ${darkMode
               ? 'bg-slate-800 border-slate-700 text-slate-100'
               : 'bg-white/50 border-slate-200 text-slate-500 hover:bg-white/80'

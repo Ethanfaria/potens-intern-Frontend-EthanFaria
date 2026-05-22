@@ -80,6 +80,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 w-full flex items-center gap-4
                 px-4 py-3 rounded-xl
                 transition-all duration-300
+                cursor-pointer
                 ${
                   active
                     ? "bg-teal-700 text-white shadow-lg"
