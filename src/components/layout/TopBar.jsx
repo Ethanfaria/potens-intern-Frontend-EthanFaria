@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { MdDarkMode, MdLightMode, MdWifi, MdWifiOff } from 'react-icons/md'
 import { useLang } from '../../components/context/LangContext'
 import { useDarkMode } from '../../components/context/DarkModeContext'
+import { useLowBW } from '../../components/context/LowBWContext'   // ← add
 
 export default function TopBar() {
   const [time, setTime] = useState(new Date())
   const { darkMode, toggleDarkMode } = useDarkMode()
-  const [lowBW, setLowBW] = useState(false)
+  const { lowBW, toggleLowBW } = useLowBW()                        // ← swap
   const { t } = useLang()
 
   useEffect(() => {
@@ -15,36 +16,46 @@ export default function TopBar() {
   }, [])
 
   return (
-    <header className="h-20 bg-cyan-300/20 dark:bg-slate-950 backdrop-blur-xl border-b border-white/20 dark:border-white/10
-      flex items-center justify-between px-6 sticky top-0 z-10">
+    <header className={`sticky top-0 z-10 border-b border-white/20 dark:border-white/10
+      backdrop-blur-xl bg-cyan-300/20 dark:bg-slate-950
+      flex items-center justify-between px-6
+      transition-all duration-300
+      ${lowBW ? 'h-12' : 'h-20'}`}>          {/* ← collapse height */}
 
       <div>
-        <h1 className="font-bold text-2xl text-slate-800 dark:text-cyan-50 tracking-wide leading-tight">
+        <h1 className={`font-bold text-slate-800 dark:text-cyan-50 tracking-wide leading-tight
+          transition-all duration-300
+          ${lowBW ? 'text-base' : 'text-2xl'}`}>
           {t.welcomeBack}
         </h1>
-        <div className="flex items-center gap-2 mt-1.5 px-1">
-          <span className="text-sm font-mono text-slate-400 dark:text-slate-400">
-            {time.toLocaleTimeString('en-IN', {
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-              hour12: false,
-            })}
-          </span>
-          <span className="text-slate-300 dark:text-slate-600 text-xs">·</span>
-          <span className="text-xs text-slate-400 dark:text-slate-500">
-            {time.toLocaleDateString('en-IN', {
-              weekday: 'short',
-              day: 'numeric',
-              month: 'short',
-            })}
-          </span>
-        </div>
+
+        {/* hide clock in low-BW mode */}
+        {!lowBW && (
+          <div className="flex items-center gap-2 mt-1.5 px-1">
+            <span className="text-sm font-mono text-slate-400 dark:text-slate-400">
+              {time.toLocaleTimeString('en-IN', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+              })}
+            </span>
+            <span className="text-slate-300 dark:text-slate-600 text-xs">·</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">
+              {time.toLocaleDateString('en-IN', {
+                weekday: 'short', day: 'numeric', month: 'short',
+              })}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center gap-2">
+        {lowBW && (
+          <span className="text-xs font-mono text-amber-600 dark:text-amber-400 mr-1">
+            low-bw
+          </span>
+        )}
+
         <button
-          onClick={() => setLowBW(!lowBW)}
+          onClick={toggleLowBW}                                     // ← use context toggle
           title={lowBW ? 'Low bandwidth on' : 'Low bandwidth off'}
           className={`p-2.5 rounded-xl border transition-all duration-200 cursor-pointer
             ${lowBW
