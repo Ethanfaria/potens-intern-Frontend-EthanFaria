@@ -8,25 +8,17 @@ import {
   MdClose,
 } from "react-icons/md";
 import { IoLanguage } from "react-icons/io5";
-const navItems = [
-  {
-    id: "actions",
-    label: "Actions",
-    icon: <MdBolt />,
-  },
-  {
-    id: "anomalies",
-    label: "Anomalies",
-    icon: <MdWarning />,
-  },
-  {
-    id: "metrics",
-    label: "Metrics",
-    icon: <MdAnalytics />,
-  },
-];
+import { useLang } from "../../components/context/LangContext";
 
 const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
+  const { lang, toggleLang, loading, t } = useLang();
+
+  const navItems = [
+    { id: "actions", label: t.actions, icon: <MdBolt /> },
+    { id: "anomalies", label: t.anomalies, icon: <MdWarning /> },
+    { id: "metrics", label: t.metrics, icon: <MdAnalytics /> },
+  ];
+
   return (
     <>
       <button
@@ -54,9 +46,7 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
         w-64 bg-cyan-300/30 backdrop-blur-xl
         border-r border-white/10
         flex flex-col shadow-2xl z-50
-
         transition-transform duration-300
-
         md:translate-x-0
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}
@@ -90,7 +80,6 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 w-full flex items-center gap-4
                 px-4 py-3 rounded-xl
                 transition-all duration-300
-
                 ${
                   active
                     ? "bg-teal-700 text-white shadow-lg"
@@ -100,7 +89,6 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 {active && (
                   <div className="absolute left-0 top-0 h-full w-1 bg-teal-800 rounded-r-full" />
                 )}
-
                 <span
                   className={`text-xl transition-all duration-300
                   ${
@@ -111,40 +99,46 @@ const Sidebar = ({ activeView, onNavigate, sidebarOpen, setSidebarOpen }) => {
                 >
                   {item.icon}
                 </span>
-
                 <span className="font-medium">{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/10">
-          <button
-            className="w-full flex items-center justify-between
-    p-3 rounded-xl
-    bg-teal-600/10 text-slate-600
-    hover:bg-teal-600/30
-    transition-all duration-300"
+        <div className="p-4 border-t border-white/10 flex gap-1">
+          {/* Account */}
+          <div
+            className="flex-3 flex items-center gap-3
+    p-3 rounded-xl bg-teal-600/10"
           >
-            <div className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-full
-        bg-linear-to-br from-teal-400 to-cyan-500
-        flex items-center justify-center"
-              >
-                <MdPerson className="text-white text-lg" />
-              </div>
-
-              <div className="text-left">
-                <p className="text-sm font-medium">Account</p>
-                <p className="text-xs text-slate-400">Admin Access</p>
-              </div>
+            <div
+              className="w-10 h-10 rounded-full
+      bg-gradient-to-br from-teal-400 to-cyan-500
+      flex items-center justify-center"
+            >
+              <MdPerson className="text-white text-lg" />
             </div>
 
-            <IoLanguage
-              size={20}
-              className="text-slate-500 hover:text-teal-600 transition-colors"
-            />
+            <div>
+              <p className="text-sm font-medium">{t.account}</p>
+              <p className="text-xs text-slate-400">{t.adminAccess}</p>
+            </div>
+          </div>
+
+          {/* Language button */}
+          <button
+            onClick={toggleLang}
+            disabled={loading}
+            className=" cursor-pointer
+      flex-1
+      rounded-xl
+      bg-teal-600/10
+      hover:bg-teal-600/30
+      flex items-center justify-center
+      transition-all duration-300
+    "
+          >
+            {loading ? "..." : <IoLanguage className="text-xl" />}
           </button>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { MdDarkMode, MdLightMode, MdWifi, MdWifiOff } from 'react-icons/md'
+import { useLang } from '../../components/context/LangContext'
 
 export default function TopBar() {
   const [time, setTime] = useState(new Date())
   const [darkMode, setDarkMode] = useState(false)
   const [lowBW, setLowBW] = useState(false)
+  const { t } = useLang()
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000)
@@ -17,9 +19,9 @@ export default function TopBar() {
 
       <div>
         <h1 className="font-bold text-2xl text-slate-800 tracking-wide leading-tight">
-          Welcome Back, Operator
+          {t.welcomeBack}
         </h1>
-        <div className="flex items-center gap-2 mt-1.5 px-1 ">
+        <div className="flex items-center gap-2 mt-1.5 px-1">
           <span className="text-sm font-mono text-slate-400">
             {time.toLocaleTimeString('en-IN', {
               hour: '2-digit',
@@ -36,10 +38,8 @@ export default function TopBar() {
               month: 'short',
             })}
           </span>
-         
         </div>
       </div>
-
 
       <div className="flex items-center gap-2">
         <button
